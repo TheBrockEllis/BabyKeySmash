@@ -12,17 +12,25 @@
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>
             window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')
         </script>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
+        
+<div class="container">
+
+    <button type="button" id="config" class="btn btn-mini btn-success"><i class="icon-white icon-wrench"></i> Config</button>
+
+    <img src="img/logo.png" title="Baby Key Smash logo" id="logo" />
 
     <audio id="sound_one">
 	    <source src="audio/one.ogg" type="audio/ogg">
@@ -39,8 +47,17 @@
     <audio id="sound_four">
 	    <source src="audio/four.ogg" type="audio/ogg">
     </audio>
+   
+    <footer style="text-align: center;">
+        <ul class="footer">
+            <li>&copy; 2013 Sharproot Media</li>
+            <li><a href="http://www.sharproot.com/blog">Blog</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
+        </ul>
+    </footer>
 
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+</div> <!-- end container -->
 
         <!-- Le JavaScript -->
         <script src="js/plugins.js"></script>

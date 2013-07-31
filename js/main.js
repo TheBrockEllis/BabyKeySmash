@@ -62,7 +62,7 @@ $(document).ready(function(){
                         case 'triangle':
                             var triangle = "<div class='triangle' id='"+keypress+"' ";
                             triangle += "style='position:absolute;top:"+position_top+"%;";
-                            triangle += "left:"+position_left+"%;background-color:#"+color+";'></div>";
+                            triangle += "left:"+position_left+"%;border-bottom-color:#"+color+";'></div>";
                             $('body').append(triangle);
                         break;
                     }
