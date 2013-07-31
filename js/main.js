@@ -13,10 +13,10 @@ $(document).ready(function(){
     
     //array of file locations for the sounds to play
     var sounds = new Array();
-    sounds[0] = "sound_one";
-    sounds[1] = "sound_two";
-    sounds[2] = "sound_three";
-    sounds[3] = "sound_four";
+    sounds[0] = "#sound_one";
+    sounds[1] = "#sound_two";
+    sounds[2] = "#sound_three";
+    sounds[3] = "#sound_four";
     
     //array of the shapes that are possible to be displayed
     var shapes = new Array("triangle", "square", "circle");
@@ -29,7 +29,7 @@ $(document).ready(function(){
         switch(event){
             case 'sound':
                     var sound = sounds[Math.floor(Math.random()*sounds.length)];
-                    var soundelement = document.getElementById(sound);
+                    var soundelement = $(sound)[0];
                     
                     console.log(soundelement);
                     soundelement.play();
