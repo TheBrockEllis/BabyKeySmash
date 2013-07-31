@@ -89,9 +89,9 @@ hr {
 
 .triangle {
     display: block;
-    border-bottom: 400px solid red;
-    border-left: 200px solid transparent;
-    border-right: 200px solid transparent;
+    border-bottom: 200px solid red;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
     overflow: hidden;
     position: absolute;
 }
