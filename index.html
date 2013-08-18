@@ -10,16 +10,18 @@
         <meta name="description" content="A baby friendly web app where every key press makes something exciting happen on the screen!">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/main.css">
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>
-            window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')
-        </script>
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="css/normalize.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        
+        <script src="js/vendor/jquery-1.10.1.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
+        <!--<script src="js/vendor/modernizr-2.6.2.min.js"></script>-->
+        <script src="js/main.js"></script>
+
+        
+         <!-- Le JavaScript -->
+        <!--<script src="js/plugins.js"></script>-->
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -30,7 +32,9 @@
         
 <div class="container">
 
-    <button type="button" id="config" class="btn btn-mini btn-success"><i class="icon-white icon-wrench"></i> Config</button>
+    <span id="recordcount"></span>
+
+    <a href="#configmodal" role="button" class="btn btn-success" id="config" data-toggle="modal"><i class="icon-white icon-wrench"></i> Settings</a>
 
     <img src="img/logo.png" title="Baby Key Smash!" id="logo" />
 
@@ -54,18 +58,41 @@
         <ul class="footer">
             <li>&copy; 2013 Sharproot Media</li>
             <li><a href="http://www.sharproot.com/blog">Blog</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li>
+            <li><a href="http://www.sharproot.com/about">About</a></li>
+            <li><a href="http://www.sharproot.com/contact">Contact</a></li>
         </ul>
     </footer>
-
+    
 </div> <!-- end container -->
 
 </div> <!-- end colorboard -->
 
-        <!-- Le JavaScript -->
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+<!-- MODAL -->      
+<div class="modal fade hide" id="configmodal" role="dialog" aria-labelledby="bob" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Settings</h3>
+  </div>
+  <div class="modal-body">
+    <FORM>
+        <label class="checkbox">
+        <input type="checkbox" value="1" name="record" id="record">
+            <strong>Record</strong>
+            <span class="help-block">Keep track of your all time record!</span>
+        </label>
+        
+        <label class="checkbox">
+        <input type="checkbox" value="1" name="auto" id="auto">
+           <strong>Auto Mode</strong>
+           <span class="help-block">Makes something happen every second!</span>
+        </label>
+        </FORM>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-success" data-dismiss="modal">Close</a>
+  </div>
+</div>
+<!-- END MODAL -->
 
         <script>
             var _gaq=[['_setAccount','UA-42749379-1'],['_trackPageview']];

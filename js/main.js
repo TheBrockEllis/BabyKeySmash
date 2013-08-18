@@ -3,7 +3,25 @@ $(document).ready(function(){
     //keep track of the number of times a key is pressed
     //used to keep track of added DOM elements
     //should be reset after a certain count to not overload browser 
-    var keypress; 
+    //used when automode is initialized
+    var timer;
+
+    //if automode is turned on, start it right away!
+    var autostatus = localStorage.getItem("autostatus");
+    if (autostatus == 1){
+        autoclick();
+         $("#auto").prop("checked", true);
+    }
+
+    //if record is set, display is right away!
+    var record = localStorage.getItem("record");
+    if(record == 1){
+        $("#record").prop("checked", true);
+        updaterecord();
+    }
+
+    //used to keep track of high total of smahes
+    var record;
 
     //array of the type of events that can take place when a key is pressed
     var events = new Array("sound", "shape", "letter", "color", "animation");
@@ -23,11 +41,56 @@ $(document).ready(function(){
     
     //array of the shapes that are possible to be displayed
     var shapes = new Array("triangle", "square", "circle");
+     
+    //update the record box!
+    function updaterecord(){
+        $("#recordcount").html( localStorage.getItem("recordcount") );
+    }
+      
+    //simulate a keypress event every second
+    function autoclick(){
+        $(document).trigger("keypress");
+        timer = setTimeout(autoclick, 1000);
+    }; 
     
-    $('body').keypress(function(){
+    //logic for starting/stoping the auto mode
+    $("#auto").on("click", function(){
+        var autostatus = $(this).is(":checked");
+        
+        if(autostatus == 1){
+            //start click loop
+            autoclick();
+            localStorage.setItem("autostatus", 1);
+        }else{
+            //end click loop
+            clearTimeout(timer);
+            localStorage.setItem("autostatus", 0);
+        }
+    });
+    
+    //start/stop the auto mode
+    $("#record").on("click", function(){
+        var record = $(this).is(":checked");
+        
+        if(record == 1){
+            //start recording keypresses
+            localStorage.setItem("record", 1);
+            localStorage.setItem("recordcount", 0);
+        }else{
+            //confirm deletion
+            var answer = confirm("You're about to delete your record. Are you sure?");
+            if(answer){
+                localStorage.setItem("record", 0);
+                localStorage.removeItem("recordcount");
+                $("#recordcount").empty();
+            }
+        }
+    });
+    
+    $(document).on('keypress touchend', function(event){
+        event.stopPropagation();
     
         var event = events[Math.floor(Math.random() * events.length)];
-        //console.log(event);
         
         switch(event){
         
@@ -36,7 +99,13 @@ $(document).ready(function(){
                     var sound = sounds[Math.floor(Math.random()*sounds.length)];
                     var soundelement = $(sound)[0];
                     soundelement.play();
-                    keypress++;
+                    if(localStorage.getItem("record") == 1){
+                        localStorage.setItem(
+                            "recordcount", 
+                            Number(localStorage.getItem("recordcount")) + 1
+                        );
+                        updaterecord();
+                    }
             break;
             
             //SHAPE
@@ -45,25 +114,31 @@ $(document).ready(function(){
                     var color = colors[Math.floor(Math.random()*colors.length)];
                     var position_top = Math.floor(Math.random()*101);
                     var position_left = Math.floor(Math.random()*101);
-                    keypress++;
+                    if(localStorage.getItem("record") == 1){
+                        localStorage.setItem(
+                            "recordcount", 
+                            Number(localStorage.getItem("recordcount")) + 1
+                        );
+                        updaterecord();
+                    }
                     
                     switch(shape){
                         case 'circle':
-                            var circle = "<div class='circle' id='"+keypress+"' ";
+                            var circle = "<div class='circle' ";
                             circle += "style='position:absolute;top:"+position_top+"%;";
                             circle += "left:"+position_left+"%;background-color:#"+color+";'></div>";
                             $('body').append(circle);
                         break;
                         
                         case 'square':
-                            var square = "<div class='square' id='"+keypress+"' ";
+                            var square = "<div class='square' ";
                             square += "style='position:absolute;top:"+position_top+"%;";
                             square += "left:"+position_left+"%;background-color:#"+color+";'></div>";
                             $('body').append(square);
                         break;
                         
                         case 'triangle':
-                            var triangle = "<div class='triangle' id='"+keypress+"' ";
+                            var triangle = "<div class='triangle' ";
                             triangle += "style='position:absolute;top:"+position_top+"%;";
                             triangle += "left:"+position_left+"%;border-bottom-color:#"+color+";'></div>";
                             $('body').append(triangle);
@@ -76,6 +151,13 @@ $(document).ready(function(){
             case 'color':
                     var color = colors[Math.floor(Math.random()*colors.length)];
                     $('#colorboard').css("background-color", "#" + color);
+                    if(localStorage.getItem("record") == 1){
+                        localStorage.setItem(
+                            "recordcount", 
+                            Number(localStorage.getItem("recordcount")) + 1
+                        );
+                        updaterecord();
+                    }
             break;
             
             //ANIMATION
@@ -85,6 +167,14 @@ $(document).ready(function(){
             
                     var $objects = $(".triangle, .circle, .square .letter");
                     $objects.eq(Math.floor(Math.random() * $objects.length)).animate({ left: position_left + "px", top: position_top + "px" }, "slow");
+                    
+                    if(localStorage.getItem("record") == 1){
+                        localStorage.setItem(
+                            "recordcount", 
+                            Number(localStorage.getItem("recordcount")) + 1
+                        );
+                        updaterecord();
+                    }
             break;
             
             //LETTER
@@ -97,7 +187,13 @@ $(document).ready(function(){
                 var span = "<span class='letter' style='position:absolute;top:"+position_top+"%; ";
                 span += "left: " + position_left + "%;color:#"+color+"'>" + letter + "</span>";
                 $('body').append(span);
-                keypress++
+                if(localStorage.getItem("record") == 1){
+                        localStorage.setItem(
+                            "recordcount", 
+                            Number(localStorage.getItem("recordcount")) + 1
+                        );
+                        updaterecord();
+                }
             break;
         }
     
